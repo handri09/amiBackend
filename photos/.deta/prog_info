@@ -1,0 +1,1 @@
+{"id":"5a06cbd7-c0a6-483c-8cba-e44646d4e8bf","space":14776,"runtime":"python3.9","name":"photos","path":"caj6tw","project":"a0bbqsrh","account":"144798365827","region":"eu-central-1","deps":["fastapi","uvicorn","deta","python-multipart"],"envs":null,"public":true,"log_level":"debug","cron":""}
