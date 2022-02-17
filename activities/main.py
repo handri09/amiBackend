@@ -25,10 +25,6 @@ def home():
     return jsonify(actions, 201)
 
   if request.method == 'POST':
-
-    # Drive
-    photos.put('enf1.jpg', path='./enf1.jpg')
-
     actions = actionsDB.put({
       'name': request.json.get('name'),
       'picture': request.json.get('picture'),
