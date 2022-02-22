@@ -14,10 +14,13 @@ def render():
         <input type="submit">
     </form>
     """
-@app.get("/pic")
-def rendering():
-    img = drive.get('1.jpg')
-    return responses.StreamingResponse(img.iter_chunks(), media_type=f"octet-stream/{'jpg'}")
+
+@app.get("/test")
+def renderr():
+    result = drive.list()
+    all_files = result.get("names")
+    name = str(int(all_files[-1].split('.')[0])+1) + '.' + all_files[-1].split('.')[1]
+    return name
 
 @app.get("/{name}")
 async def serve(name):
@@ -27,7 +30,10 @@ async def serve(name):
 
 @app.post("/upload")
 def upload_img(file: UploadFile = File(...)):
-    name = file.filename
+    result = drive.list()
+    all_files = result.get("names")
+    fname = file.filename
+    name = str(int(all_files[-1].split('.')[0])+1) + '.' + fname.split('.')[1]
     f = file.file
     res = drive.put(name, f)
     return res

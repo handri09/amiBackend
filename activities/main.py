@@ -22,12 +22,24 @@ def home():
     actions = actionsDB.fetch()
     actions = actions.items
 
-    return jsonify(actions, 201)
+    result = drive.list()
+    all_files = result.get("names")
+    return jsonify(actions, 201, all_files)
+
+  if request.method == 'DELETE':
+    actions = actionsDB.delete(request.json.get('key'))
+    return actions
 
   if request.method == 'POST':
+
+    result = drive.list()
+    all_files = result.get("names")
+
+    name = str(int(all_files[-1].split('.')[0])+1) + '.' + request.json.get('picture').split('.')[1]
+
     actions = actionsDB.put({
       'name': request.json.get('name'),
-      'picture': request.json.get('picture'),
+      'picture': name, #request.json.get('picture'),
       'story': request.json.get('story')
     })
     return jsonify(actions, 201)
